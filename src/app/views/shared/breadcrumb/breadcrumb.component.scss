@@ -1,0 +1,45 @@
+.justify-end {
+  justify-content: flex-end;
+}
+
+.ltr-dir {
+  direction: ltr;
+  padding: 0;
+}
+
+.page-breadcrumb .breadcrumb .breadcrumb-item + .breadcrumb-item.active {
+  color: #99abb4;
+}
+
+.page-breadcrumb .breadcrumb .breadcrumb-item {
+  font-size: 14px;
+}
+
+.page-breadcrumb .breadcrumb .breadcrumb-item a {
+  padding-right: .5rem;
+}
+
+.page-breadcrumb .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  content: "";
+  font-family: themify;
+  color: #99abb4;
+  font-size: 11px;
+  padding-right: .5rem;
+}
+
+.page-breadcrumb .breadcrumb {
+  padding: 0;
+  margin: 0;
+  background: 0 0;
+}
+
+.float-right {
+  float: right;
+}
+
+ul.list-style-none li a {
+  color: #1e88e5;
+  padding: 8px 0;
+  display: block;
+  text-decoration: none;
+}

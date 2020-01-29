@@ -1,0 +1,21 @@
+<div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-content *ngIf="sliders.length > 0">
+      <div class="comment-widgets" fxLayout="row wrap" @list>
+        <!-- Comment Row -->
+        <app-crud-list
+          fxFlex.gt-lg="25" fxFlex.gt-md="33.3" fxFlex.gt-xs="100" fxFlex="100"
+          *ngFor="let slider of sliders; let i=index;"
+          [smallImage]="apiUrl+slider.image"
+
+          (deleteEvent)="delete(slider.id,i)"
+          editLink="/sliders/edit/{{slider.id}}"
+          @items></app-crud-list>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+

@@ -1,0 +1,31 @@
+<small *ngIf="form.controls[field].hasError('required') && form.controls[field].touched"
+          class="text-danger font-14">
+    this field is required
+</small>
+<small *ngIf="form.controls[field].hasError('minlength') && form.controls[field].touched"
+          class="text-danger font-14">
+    this field must be at least {{form.controls[field].errors.minlength.requiredLength}} characters long.
+</small>
+<small *ngIf="form.controls[field].hasError('maxlength') && form.controls[field].touched"
+          class="text-danger font-14">Your {{field}} cannot exceed {{form.controls[field].errors.maxlength.requiredLength}} characters.
+</small>
+
+<small *ngIf="form.controls[field].errors?.email && form.controls[field].touched"
+       class="text-danger font-14">You must include a valid email address.
+</small>
+
+<small *ngIf="form.controls[field].errors?.url && form.controls[field].touched"
+       class="text-danger font-14">You must include a valid web address.
+</small>
+<mat-hint *ngIf="form.controls[field].errors?.date && form.controls[field].touched"
+          class="text-danger font-14">You must include a valid date.
+</mat-hint>
+<small *ngIf="form.controls[field].errors?.range && form.controls[field].touched"
+       class="text-danger font-14">Number should be between 5 and 9.
+</small>
+<small *ngIf="form.controls[field].errors?.phone && form.controls[field].touched"
+       class="text-danger font-14">You must include a valid phone number.
+</small>
+<small *ngIf="form.controls[field].errors?.equalTo" class="text-danger font-14">
+    Passwords do not math.
+</small>

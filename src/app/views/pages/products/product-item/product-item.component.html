@@ -1,0 +1,124 @@
+<app-input-validation field="code" [theForm]="formItem"></app-input-validation>
+<app-input-validation field="quantity" type="number" [theForm]="formItem"></app-input-validation>
+<app-input-validation field="price" type="number" [theForm]="formItem"></app-input-validation>
+<app-input-validation field="new_price" type="number" [theForm]="formItem"></app-input-validation>
+<app-input-validation field="pieces" [theForm]="formItem"></app-input-validation>
+
+<mat-form-field>
+  <mat-select placeholder="{{'size' | translate}}" [formControl]="sizeSelect">
+    <mat-option *ngFor="let size of sizes"
+                [value]="size.id">{{size.nameEn + ' - ' + size.nameAr}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-select placeholder="{{'color' | translate}}" [formControl]="colorSelect">
+    <mat-option *ngFor="let color of colors"
+                [value]="color.id">{{color.nameEn + ' - ' + color.nameAr}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+<mat-form-field>
+  <mat-select placeholder="{{'select attributes' | translate}}" [formControl]="attributesSelect"
+              (selectionChange)="onChangeAttributes($event)"  multiple>
+    <mat-option *ngFor="let attribute of attributes"
+                [value]="attribute">{{attribute.nameEn + ' - ' + attribute.nameAr}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngFor="let item of t.controls; let i = index" class="list-group list-group-flush">
+  <div fxFlex.gt-sm="20" fxFlex="100" class="p-10" fxLayoutAlign="start center">
+    <label>{{attributesSelect.value[i].nameEn + ' - ' + attributesSelect.value[i].nameAr}}</label>
+  </div>
+  <div fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+      <app-input-validation field="keyEn" placeholder="{{attributesSelect.value[i].nameEn}}"
+                            [theForm]="item"></app-input-validation>
+    </div>
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+      <app-input-validation field="keyAr" placeholder="{{attributesSelect.value[i].nameAr}}"
+                            [theForm]="item"></app-input-validation>
+    </div>
+  </div>
+</div>
+
+
+<button mat-raised-button type="button"  color="primary" *ngIf="!isUpdate" [disabled]="!formItem.valid" (click)="addItemToArray()">{{'add' | translate}}
+  <mat-icon>add</mat-icon>
+</button>
+<button mat-raised-button type="button"  color="primary" *ngIf="isUpdate" [disabled]="!formItem.valid" (click)="addItemToArray()">{{'update' | translate}}
+  <mat-icon>save</mat-icon>
+</button>
+<mat-table #table [dataSource]="dataSource">
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="code">
+    <mat-header-cell *matHeaderCellDef> {{'code' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.code}}
+    </mat-cell>
+  </ng-container>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef> {{'quantity' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.quantity}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef> {{'price' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.price}}
+    </mat-cell>
+  </ng-container>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="new_price">
+    <mat-header-cell *matHeaderCellDef> {{'new_price' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.new_price}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="pieces">
+    <mat-header-cell *matHeaderCellDef> {{'pieces' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.pieces}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="size">
+    <mat-header-cell *matHeaderCellDef> {{'size' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+       {{ findNameById(sizes, element.sizes_id) }}
+
+    </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="color">
+    <mat-header-cell *matHeaderCellDef> {{'color' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ findNameById(colors, element.colors_id) }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> {{'action' |translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <button mat-button (click)="editItem(i,element.id)" color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-button (click)="deleteItem(i,element.id)" color="warn">
+        <mat-icon>delete_sweep</mat-icon>
+      </button>
+
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>

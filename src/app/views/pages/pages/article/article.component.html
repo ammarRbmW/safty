@@ -1,0 +1,72 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+
+      <div fxLayout="row" fxLayout.sm="column">
+
+        <div fxFlex.gt-sm="33.33%">
+          <app-upload-card imageName="{{imageUpload.configImage.ImageName | translate}}" elementId="StoryImage"
+                           [showSpinner]="imageUpload.showSpinnerImage"
+
+                           (readURLEvent)="readURL($event, 'mainPhoto')"
+                           [oldImage]="imageUpload.oldImage"></app-upload-card>
+          <ng-template #openDialogImage>
+            <app-image-editor [config]="imageUpload.configImage"
+                              (file)="getEditedFile($event, 'image') "
+                              (fileOpen)="fileOpen($event)"
+
+                              [oldImage]="imageUpload.oldImage"
+                              [oldImage1]="false">
+
+            </app-image-editor>
+          </ng-template>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (submit)="store()">
+        <mat-tab-group>
+          <mat-tab label="{{ 'English' | translate}}">
+            <mat-card-content>
+              <app-input-validation field="titleEn" [theForm]="form"></app-input-validation>
+              <app-input-validation field="descriptionEn" [theForm]="form"></app-input-validation>
+              <app-input-validation field="tagsEn" [theForm]="form"></app-input-validation>
+              <quill-editor [formControl]="form.controls['textEn']"></quill-editor>
+              <br>
+            </mat-card-content>
+          </mat-tab>
+          <mat-tab label="{{ 'Arabic' | translate}}">
+            <mat-card-content>
+              <app-input-validation field="titleAr" [theForm]="form"></app-input-validation>
+              <app-input-validation field="descriptionAr" [theForm]="form"></app-input-validation>
+              <app-input-validation field="tagsAr" [theForm]="form"></app-input-validation>
+
+              <quill-editor [formControl]="form.controls['textAr']"></quill-editor>
+              <br>
+            </mat-card-content>
+          </mat-tab>
+
+        </mat-tab-group>
+        <div class="p-10">
+          <mat-form-field>
+            <input matInput placeholder="{{'Select Date' |translate}}"
+                   [formControl]="form.controls.date"
+                   [matDatepicker]="datepickerRef" required readonly/>
+            <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #datepickerRef></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <mat-card-actions class="p-10">
+          <button mat-raised-button color="primary"
+                  type="submit"
+                  [disabled]="!form.valid">
+            {{ 'save'| translate}}
+          </button>
+          <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+        </mat-card-actions>
+
+      </form>
+    </mat-card>
+  </div>
+</div>

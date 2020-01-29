@@ -1,0 +1,25 @@
+<mat-card-title>{{'Add Related Products' | translate}}</mat-card-title>
+<div fxLayout="row" fxLayout.sm="column">
+  <mat-form-field>
+    <mat-select (selectionChange)="addNewRelated()" placeholder="Product" [formControl]="relatedProductsSelect">
+      <mat-option *ngFor="let product of products"
+                  [value]="product.id">{{product.nameEn + ' - ' + product.nameAr}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+<br>
+<mat-card-title>{{'Related Products' | translate}}</mat-card-title>
+<mat-card-content *ngIf="relatedProducts.length > 0">
+  <div class="comment-widgets" fxLayout="row wrap" @list>
+    <!-- Comment Row -->
+    <app-crud-list
+      fxFlex.gt-lg="25" fxFlex.gt-md="33.3" fxFlex.gt-xs="100" fxFlex="100"
+      *ngFor="let relatedProduct of relatedProducts; let i=index;"
+      [smallImage]="apiUrl+relatedProduct.mainPhoto"
+      [cardTitle]="relatedProduct.nameEn"
+      (deleteEvent)="delete(relatedProduct.id,i)"
+      @items></app-crud-list>
+
+  </div>
+</mat-card-content>

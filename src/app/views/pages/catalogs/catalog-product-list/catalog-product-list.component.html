@@ -1,0 +1,46 @@
+<div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-content>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{'add product' | translate }}</mat-panel-title>
+            <mat-panel-description> {{'you can add product in this catalog' | translate }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <mat-select placeholder="Select Product" [formControl]="productsSelect">
+              <mat-option *ngFor="let product of allProducts"
+                          [value]="product">{{product.nameEn + ' - ' + product.nameAr}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary"
+                  type="submit" (click)="addProductToCatalog()">
+            {{ 'save'| translate}}
+          </button>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content *ngIf="products.length > 0">
+      <div class="comment-widgets" fxLayout="row wrap" @list>
+        <!-- Comment Row -->
+        <app-crud-list
+          fxFlex.gt-lg="25" fxFlex.gt-md="33.3" fxFlex.gt-xs="100" fxFlex="100"
+          *ngFor="let product of products; let i=index;"
+          [cardTitle]="product.nameEn"
+          [cardDescription]="product.nameEn"
+          (deleteEvent)="delete(product.id,i)"
+          [smallImage]="apiUrl+product.mainPhoto"
+          @items></app-crud-list>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+

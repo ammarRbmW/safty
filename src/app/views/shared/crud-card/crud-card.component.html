@@ -1,0 +1,50 @@
+<mat-card class="oh text-center little-profile">
+  <img mat-card-image
+       *ngIf="bigImage"
+       [src]="bigImage">
+  <div *ngIf="!bigImage && smallImage"
+       style="width: 128px;height: 128px;">
+  </div>
+  <mat-card-content>
+    <div class="pro-img">
+      <img *ngIf="smallImage"
+           [src]="smallImage">
+      <div *ngIf="!smallImage"
+           style="width: 128px;height: 128px;">
+      </div>
+    </div>
+    <h3 class="m-b-0" *ngIf="cardTitle">{{cardTitle}}</h3>
+    <h6 class="m-t-0 cut-text" *ngIf="cardDescription">{{cardDescription}}</h6>
+    <span *ngIf="active===0" class="label label-danger">{{ 'inactive'  }}</span>
+    <span *ngIf="active===1" class="label label-success">{{ 'active'  }}</span>
+
+    <div fxLayout="row" fxLayoutWrap="wrap" class="m-t-30">
+      <div *ngIf="showLink" fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+        <button mat-button mat-icon-button
+                [routerLink]="showLink"
+
+                matTooltip="{{ 'show' }}">
+          <i class="ti-eye text-warning"></i>
+        </button>
+      </div>
+      <div *ngIf="editLink" fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+        <button mat-button mat-icon-button
+                [routerLink]="editLink"
+
+                matTooltip="{{ 'edit'  }}">
+          <i class="ti-pencil text-info"></i>
+        </button>
+      </div>
+      <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+        <button mat-button mat-icon-button
+                (click)="_deleteEvent(data)"
+                matTooltip="{{ 'delete' }}">
+          <i class="ti-trash text-danger"></i>
+        </button>
+      </div>
+      <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+        <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

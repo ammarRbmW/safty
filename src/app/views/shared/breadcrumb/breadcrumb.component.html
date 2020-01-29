@@ -1,0 +1,24 @@
+<div class="page-breadcrumb bg-white p-l-30  p-r-30 " style="padding-left: 30px">
+  <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+    <div class="align-self-center" fxflex="100" fxflex.gt-sm="60" fxflex.gt-xs="60"
+         style="flex: 1 1 60%; box-sizing: border-box; max-width: 60%;">
+      <h4 class="page-title text-themecolor"> {{pageTitle | translate}} </h4>
+    </div>
+    <div class="align-self-center" fxflex="100" fxflex.gt-sm="40" fxflex.gt-xs="40"
+         style="flex: 1 1 40%; box-sizing: border-box; max-width: 40%;">
+      <div class="breadcrumb d-flex align-items-center justify-end">
+        <ul class="list-style-none d-flex align-items-center ltr-dir">
+
+          <li *ngFor="let link of links" class="breadcrumb-item ng-star-inserted" [ngClass]="link.url? '': 'active'"
+              tabindex="0">
+            <a *ngIf="link.url">{{link.label | translate}}</a>
+            <span *ngIf="!link.url" [routerLink]="link.url">
+              {{ link.label | translate }}
+            </span>
+          </li>
+          <!--          <li class="breadcrumb-item active ng-star-inserted">Lists</li>-->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

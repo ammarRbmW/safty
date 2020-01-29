@@ -1,0 +1,36 @@
+<mat-card-title>{{'Add Images' | translate}}</mat-card-title>
+<div fxLayout="row" fxLayout.sm="column">
+
+  <div fxFlex.gt-sm="33.33%">
+    <app-upload-card imageName="{{imagesUpload.configImage.ImageName | translate}}" elementId="AlbumImage"
+                     [showSpinner]="imagesUpload.showSpinnerImage"
+
+                     (readURLEvent)="readURL($event, 'images')"
+                     [oldImage]="imagesUpload.oldImage"></app-upload-card>
+    <ng-template #openDialogImage>
+      <app-image-editor [config]="imagesUpload.configImage"
+                        (file)="getEditedFile($event, 'image') "
+                        (fileOpen)="fileOpen($event)"
+                        [fixedWidth]="fixedWidth"
+                        [fixedHeight]="fixedHeight"
+                        [oldImage]="imagesUpload.oldImage"
+                        [oldImage1]="false">
+
+      </app-image-editor>
+    </ng-template>
+  </div>
+</div>
+<br>
+<mat-card-title>{{'Product Images' | translate}}</mat-card-title>
+<mat-card-content *ngIf="productImages.length > 0">
+  <div class="comment-widgets" fxLayout="row wrap" @list>
+    <!-- Comment Row -->
+    <app-crud-list
+      fxFlex.gt-lg="25" fxFlex.gt-md="33.3" fxFlex.gt-xs="100" fxFlex="100"
+      *ngFor="let pImage of productImages; let i=index;"
+      [smallImage]="apiUrl+pImage.image"
+      (deleteEvent)="delete(pImage.id,i)"
+      @items></app-crud-list>
+
+  </div>
+</mat-card-content>

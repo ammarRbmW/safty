@@ -1,0 +1,151 @@
+<div fxLayout="row wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <div fxLayout="row" fxLayout.sm="column">
+
+        <div fxFlex.gt-sm="33.33%">
+          <app-upload-card imageName="{{imageUpload.configImage.ImageName | translate}}" elementId="StoryImage"
+                           [showSpinner]="imageUpload.showSpinnerImage"
+
+                           (readURLEvent)="readURL($event, 'mainPhoto')"
+                           [oldImage]="imageUpload.oldImage"></app-upload-card>
+          <ng-template #openDialogImage>
+            <app-image-editor [config]="imageUpload.configImage"
+                              (file)="getEditedFile($event, 'image') "
+                              (fileOpen)="fileOpen($event)"
+                              [fixedWidth]="fixedWidth"
+                              [fixedHeight]="fixedHeight"
+                              [oldImage]="imageUpload.oldImage"
+                              [oldImage1]="false">
+
+            </app-image-editor>
+          </ng-template>
+        </div>
+      </div>
+
+
+      <mat-card-content>
+        <mat-checkbox class="checkbox-block" [formControl]="form.controls['active']"
+                      [labelPosition]="'before'">
+          {{'active' | translate}}
+        </mat-checkbox>
+        <mat-vertical-stepper [linear]="false">
+
+          <mat-step [formGroup]="form">
+            <ng-template matStepLabel>{{ 'Base Information' | translate}}</ng-template>
+            <mat-tab-group>
+              <mat-tab label="{{ 'English' | translate}}">
+                <mat-card-content>
+                  <app-input-validation field="nameEn" [theForm]="form"></app-input-validation>
+                  <label class="editor-label">{{'descriptionEn' | translate}}</label>
+                  <quill-editor [formControl]="form.controls['descriptionEn']"></quill-editor>
+                  <br>
+                  <label class="editor-label">{{'specificationsEn' | translate}}</label>
+
+                  <quill-editor [formControl]="form.controls['specificationsEn']"></quill-editor>
+                </mat-card-content>
+              </mat-tab>
+              <mat-tab label="{{ 'Arabic' | translate}}">
+                <mat-card-content>
+                  <app-input-validation field="nameAr" [theForm]="form"></app-input-validation>
+                  <label class="editor-label">{{'descriptionAr' | translate}}</label>
+
+                  <quill-editor [formControl]="form.controls['descriptionAr']"></quill-editor>
+                  <br>
+                  <label class="editor-label">{{'specificationsAr' | translate}}</label>
+
+                  <quill-editor [formControl]="form.controls['specificationsAr']"></quill-editor>
+                </mat-card-content>
+              </mat-tab>
+
+            </mat-tab-group>
+            <div>
+              <button mat-raised-button type="button" color="warn" matStepperNext>{{'Next' | translate}}</button>
+            </div>
+          </mat-step>
+          <mat-step [formGroup]="form">
+
+            <ng-template matStepLabel>{{ 'Product Properties' | translate}}</ng-template>
+            <mat-checkbox class="checkbox-block" [formControl]="form.controls['virtual']"
+                          [labelPosition]="'before'">
+              {{'virtual' | translate}}
+            </mat-checkbox>
+            <app-input-validation field="sku" [theForm]="form"></app-input-validation>
+            <app-input-validation field="badge" [theForm]="form"></app-input-validation>
+            <app-input-validation field="lowStockThreshold" type="number" [theForm]="form"></app-input-validation>
+
+            <mat-form-field>
+              <mat-select placeholder="{{'brand' | translate}}" [formControl]="form.controls.brandsId">
+                <mat-option *ngFor="let brand of brands"
+                            [value]="brand.id">{{brand.nameEn + ' - ' + brand.nameAr}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div>
+              <button mat-button color="primary" matStepperPrevious>{{'Back' | translate}}</button>
+              <button mat-raised-button type="button" color="warn" matStepperNext>{{'Next' | translate}}</button>
+            </div>
+          </mat-step>
+          <mat-step [formGroup]="form">
+
+            <ng-template matStepLabel>{{ 'Product Items' | translate}}</ng-template>
+
+            <app-product-item
+              [itemsData]="items"
+              [attributes]="attributes"
+              [colors]="colors"
+              [sizes]="sizes"
+              [isItemEdit]="isItemEdit"
+              (productItemsArray)="displayArray($event)"></app-product-item>
+            <br>
+            <div>
+              <button mat-button color="primary" matStepperPrevious>{{'Back' | translate}}</button>
+              <button mat-raised-button type="button" color="warn" matStepperNext>{{'Next' | translate}}</button>
+            </div>
+          </mat-step>
+
+          <mat-step *ngIf="isItemEdit">
+            <ng-template matStepLabel>{{ 'Product Images' | translate}}</ng-template>
+            <app-product-images [productId]="id" [productImages]="productImages"></app-product-images>
+            <div>
+              <button mat-button color="primary" matStepperPrevious>{{'Back' | translate}}</button>
+              <button mat-raised-button type="button" color="warn" matStepperNext>{{'Next' | translate}}</button>
+            </div>
+          </mat-step>
+          <mat-step *ngIf="isItemEdit">
+            <ng-template matStepLabel>{{ 'Related Products' | translate}}</ng-template>
+            <app-related-product [productId]="id"></app-related-product>
+            <div>
+              <button mat-button color="primary" matStepperPrevious>{{'Back' | translate}}</button>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>{{'Done' | translate}}</ng-template>
+
+            <div>
+              <button mat-button color="primary" matStepperPrevious>{{'Back' | translate}}</button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+
+      </mat-card-content>
+      <mat-card-actions class="p-10">
+
+
+        <button mat-raised-button color="primary"
+                type="submit"
+                (click)="store()"
+                [disabled]="!form.valid || imageUpload.showSpinnerImage">
+          {{ 'save'| translate}}
+        </button>
+        <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+
+      </mat-card-actions>
+      <br>
+    </mat-card>
+
+  </div>
+</div>
+
+

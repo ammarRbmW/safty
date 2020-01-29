@@ -1,0 +1,23 @@
+<div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-content *ngIf="articles.length > 0">
+      <div class="comment-widgets" fxLayout="row wrap" @list>
+        <!-- Comment Row -->
+        <app-crud-list
+          fxFlex.gt-lg="25" fxFlex.gt-md="33.3" fxFlex.gt-xs="100" fxFlex="100"
+          *ngFor="let article of articles; let i=index;"
+          [cardTitle]="article.titleEn"
+          [cardDescription]="article.titleEn"
+          (deleteEvent)="delete(article.id,i)"
+          editLink="/pages/articles/edit/{{article.id}}/{{articlePageId}}"
+
+          @items></app-crud-list>
+
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+

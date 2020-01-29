@@ -1,0 +1,13 @@
+
+.comment-text {
+  overflow: hidden;
+
+  .comment-footer {
+    transform: translateY(50px);
+    transition: all .3s ease-in-out;
+  }
+}
+
+.comment-row:hover .comment-footer {
+  transform: translateY(0);
+}

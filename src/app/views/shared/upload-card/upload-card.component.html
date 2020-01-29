@@ -1,0 +1,25 @@
+<!-- Card column -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{imageName}}</mat-card-title>
+  </mat-card-header>
+  <img style="    height: 150px;
+    width: auto;
+    margin: auto;
+    display: block;" *ngIf="oldImage && !showSpinner" [src]="oldImage">
+  <mat-spinner style="margin: auto;" *ngIf="showSpinner"></mat-spinner>
+
+  <mat-card-content>
+
+    <input id="{{ elementId }}" hidden type="file" (change)="_readURLEvent($event);">
+    <mat-card-actions>
+
+      <button mat-icon-button
+              color="accent"
+              matTooltip="Upload Image"
+              (click)="_newFileEvent()">
+        <mat-icon>folder_open</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>

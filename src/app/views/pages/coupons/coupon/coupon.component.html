@@ -1,0 +1,38 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <form [formGroup]="form" (submit)="store()">
+        <div class="p-10">
+          <app-input-validation field="code" [theForm]="form"></app-input-validation>
+          <app-input-validation field="discountType" [theForm]="form"></app-input-validation>
+          <app-input-validation field="value" [theForm]="form"></app-input-validation>
+          <mat-form-field>
+            <input matInput placeholder="{{'Select Start Date' | translate}}"
+                   [formControl]="form.controls.startDate"
+                   [matDatepicker]="datepickerRef" required readonly/>
+            <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #datepickerRef></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="{{'Select End Date' | translate}}"
+                   [formControl]="form.controls.endDate"
+                   [matDatepicker]="datepickerEnd" required readonly/>
+            <mat-datepicker-toggle [for]="datepickerEnd" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #datepickerEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <mat-card-actions class="p-10">
+          <button mat-raised-button color="primary"
+                  type="submit"
+                  [disabled]="!form.valid">
+            {{ 'save'| translate}}
+          </button>
+          <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+        </mat-card-actions>
+
+      </form>
+    </mat-card>
+  </div>
+</div>

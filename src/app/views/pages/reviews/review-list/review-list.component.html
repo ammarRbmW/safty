@@ -1,0 +1,401 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+
+
+      <mat-tab-group>
+        <mat-tab label="{{ 'Not Answered' | translate}}">
+          <mat-card-content>
+            <mat-table #table [dataSource]="dataSourceNotAnswer">
+
+              <!-- Weight Column -->
+              <ng-container *ngFor="let col of displayedColumns" matColumnDef="{{col}}">
+                <div
+                  *ngIf="col!== 'action' && col!== 'product' && col!== 'user' && col!== 'answered_by'&& col!== 'updated_at'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element[col]}}
+                  </mat-cell>
+                </div>
+                <div *ngIf="col === 'updated_at'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element[col] | date:'mediumDate'}}
+                  </mat-cell>
+                </div>
+
+                <div *ngIf="col === 'product' || col === 'user' || col === 'answered_by'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate }}</mat-header-cell>
+
+                  <mat-cell *matCellDef="let element; let i = index">
+                    <div *ngIf="col === 'product' && element[col]">
+
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].main_photo}}"/>
+                        </div>
+                        <h6>{{element[col].translations.en.name}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].main_photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].translations.en.name}}</h3>
+                              <p class="m-b-0 m-t-0"><b>{{'rate' |translate }}: </b> {{element[col].rate}}</p>
+                              <p class="m-b-0 m-t-0"><b> </b> {{element[col].sku}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'lowStockThreshold' |translate }}:  </b> {{element[col].low_stock_threshold}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+                    <div *ngIf="col === 'user'  && element[col]">
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].photo}}"/>
+                        </div>
+                        <h6>{{element[col].username}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].username}}</h3>
+                              <p class="m-b-0 m-t-0">
+                                <b> {{'full name' |translate }}: </b>
+                                {{element[col].first_name + ' ' + element[col].last_name}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'email' |translate }}: </b> {{element[col].email}}
+                              <p class="m-b-0 m-t-0"><b>{{'mobile' |translate }}: </b> {{element[col].mobile}}
+                              <p class="m-b-0 m-t-0"><b>{{'birthday' |translate }}: </b> {{element[col].birthday}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+
+                    <div *ngIf="col === 'answered_by' && element[col]">
+
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].photo}}"/>
+                        </div>
+                        <h6>{{element[col].username}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].username}}</h3>
+                              <p class="m-b-0 m-t-0">
+                                <b> {{'full name' |translate }}: </b>
+                                {{element[col].first_name + ' ' + element[col].last_name}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'email' |translate }}: </b> {{element[col].email}}
+                              <p class="m-b-0 m-t-0"><b>{{'mobile' |translate }}: </b> {{element[col].mobile}}
+                              <p class="m-b-0 m-t-0"><b>{{'birthday' |translate }}: </b> {{element[col].birthday}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+
+
+                  </mat-cell>
+
+
+                </div>
+
+                <div *ngIf="col==='action'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate }}</mat-header-cell>
+                  <mat-cell *matCellDef="let element; let i = index">
+
+                    <a [routerLink]="'answer/'+element.id"
+                       style="cursor: pointer;"
+                       matTooltip="{{ 'reply' | translate }}">
+                      <mat-icon class="text-success">reply</mat-icon>
+                    </a>
+
+                    <a (click)="delete(element.id,i)" style="cursor: pointer;" matTooltip="{{ 'delete' | translate }}">
+                      <mat-icon class="text-danger">clear</mat-icon>
+                    </a>
+                  </mat-cell>
+                </div>
+
+
+              </ng-container>
+
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+          </mat-card-content>
+        </mat-tab>
+
+
+        <mat-tab label="{{ 'Answered' | translate}}">
+          <mat-card-content>
+            <mat-table #table [dataSource]="dataSourceAnswer">
+
+              <!-- Weight Column -->
+              <ng-container *ngFor="let col of displayedColumns" matColumnDef="{{col}}">
+                <div *ngIf="col!== 'action' && col!== 'product' && col!== 'user' && col!== 'answered_by' && col !== 'updated_at'">
+                  <mat-header-cell *matHeaderCellDef> {{col}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element[col]}}
+                  </mat-cell>
+                </div>
+                <div *ngIf="col === 'updated_at'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element[col] | date:'mediumDate'}}
+                  </mat-cell>
+                </div>
+                <div *ngIf="col === 'product' || col === 'user' || col === 'answered_by'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate }}</mat-header-cell>
+
+                  <mat-cell *matCellDef="let element; let i = index">
+                    <div *ngIf="col === 'product' && element[col]">
+
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].main_photo}}"/>
+                        </div>
+                        <h6>{{element[col].translations.en.name}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].main_photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].translations.en.name}}</h3>
+                              <p class="m-b-0 m-t-0"><b>{{'rate' |translate }}: </b> {{element[col].rate}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'sku' |translate }}:{{'sku' |translate }}:  </b> {{element[col].sku}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'lowStockThreshold' |translate }}:  </b> {{element[col].low_stock_threshold}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+                    <div *ngIf="col === 'user' && element[col]">
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].photo}}"/>
+                        </div>
+                        <h6>{{element[col].username}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].username}}</h3>
+                              <p class="m-b-0 m-t-0">
+                                <b> {{'full name' |translate }}:</b>
+                                {{element[col].first_name + ' ' + element[col].last_name}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'email' |translate }}: </b> {{element[col].email}}
+                              <p class="m-b-0 m-t-0"><b>{{'mobile' |translate }}: </b> {{element[col].mobile}}
+                              <p class="m-b-0 m-t-0"><b>{{'birthday' |translate }}: </b> {{element[col].birthday}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+
+                    <div *ngIf="col === 'answered_by' && element[col]">
+
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].photo}}"/>
+                        </div>
+                        <h6>{{element[col].username}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].username}}</h3>
+                              <p class="m-b-0 m-t-0">
+                                <b> {{'full name' |translate }}: </b>
+                                {{element[col].first_name + ' ' + element[col].last_name}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'email' |translate }}: </b> {{element[col].email}}
+                              <p class="m-b-0 m-t-0"><b>{{'mobile' |translate }}: </b> {{element[col].mobile}}
+                              <p class="m-b-0 m-t-0"><b>{{'birthday' |translate }}: </b> {{element[col].birthday}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+
+
+                  </mat-cell>
+
+
+                </div>
+
+                <div *ngIf="col==='action'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element; let i = index">
+
+                    <a (click)="delete(element.id,i)" style="cursor: pointer;" matTooltip="{{ 'delete' | translate}}">
+                      <mat-icon class="text-danger">clear</mat-icon>
+                    </a>
+                  </mat-cell>
+                </div>
+
+
+              </ng-container>
+
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+          </mat-card-content>
+        </mat-tab>
+
+        <mat-tab label="{{ 'All' | translate}}">
+          <mat-card-content>
+            <mat-table #table [dataSource]="dataSourceAll">
+
+              <!-- Weight Column -->
+              <ng-container *ngFor="let col of displayedColumns" matColumnDef="{{col}}">
+                <div *ngIf="col!== 'action' && col!== 'product' && col!== 'user' && col!== 'answered_by' && col!== 'updated_at'">
+                  <mat-header-cell *matHeaderCellDef> {{col |translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element[col]}}
+                  </mat-cell>
+                </div>
+                <div *ngIf="col === 'updated_at'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{element[col] | date:'mediumDate'}}
+                  </mat-cell>
+                </div>
+                <div *ngIf="col === 'product' || col === 'user' || col === 'answered_by'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate }}</mat-header-cell>
+
+                  <mat-cell *matCellDef="let element; let i = index">
+                    <div *ngIf="col === 'product' && element[col]">
+
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].main_photo}}"/>
+                        </div>
+                        <h6>{{element[col].translations.en.name}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].main_photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].translations.en.name}}</h3>
+                              <p class="m-b-0 m-t-0"><b>{{'rate' |translate }}: </b> {{element[col].rate}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'sku' |translate }}: </b> {{element[col].sku}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'lowStockThreshold' |translate }}:  </b> {{element[col].low_stock_threshold}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+                    <div *ngIf="col === 'user'  && element[col]">
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].photo}}"/>
+                        </div>
+                        <h6>{{element[col].username}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].username}}</h3>
+                              <p class="m-b-0 m-t-0">
+                                <b> {{'full name' |translate }}: </b>
+                                {{element[col].first_name + ' ' + element[col].last_name}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'email' |translate }}: </b> {{element[col].email}}
+                              <p class="m-b-0 m-t-0"><b>{{'mobile' |translate }}: </b> {{element[col].mobile}}
+                              <p class="m-b-0 m-t-0"><b>{{'birthday' |translate }}: </b> {{element[col].birthday}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+
+                    <div *ngIf="col === 'answered_by' && element[col]">
+
+                      <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                        <div class="image-table-border">
+                          <img class="img-responsive rounded" src="{{apiUrl + element[col].photo}}"/>
+                        </div>
+                        <h6>{{element[col].username}}</h6>
+                      </div>
+                      <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                        <div>
+                          <mat-card class="oh text-center little-profile">
+                            <img src="{{apiUrl + element[col].photo}}" width="200">
+                            <mat-card-content>
+                              <h3 class="m-b-0 m-t-3">{{element[col].username}}</h3>
+                              <p class="m-b-0 m-t-0">
+                                <b> {{'full name' |translate }}: </b>
+                                {{element[col].first_name + ' ' + element[col].last_name}}</p>
+                              <p class="m-b-0 m-t-0"><b>{{'email' |translate }}: </b> {{element[col].email}}
+                              <p class="m-b-0 m-t-0"><b>{{'mobile' |translate }}: </b> {{element[col].mobile}}
+                              <p class="m-b-0 m-t-0"><b>{{'birthday' |translate }}: </b> {{element[col].birthday}}
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                      </mde-popover>
+                    </div>
+
+
+                  </mat-cell>
+
+
+                </div>
+
+                <div *ngIf="col==='action'">
+                  <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element; let i = index">
+
+                    <a *ngIf="!element.answered_by_id" [routerLink]="'answer/'+element.id"
+                       style="cursor: pointer;"
+                       matTooltip="{{ 'reply' | translate }}">
+                      <mat-icon class="text-success">reply</mat-icon>
+                    </a>
+                    <a (click)="delete(element.id,i)" style="cursor: pointer;" matTooltip="{{ 'delete' | translate}}">
+                      <mat-icon class="text-danger">clear</mat-icon>
+                    </a>
+                  </mat-cell>
+                </div>
+
+
+              </ng-container>
+
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+
+
+    </mat-card>
+  </div>
+</div>
+
+

@@ -1,0 +1,363 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~chartist/dist/chartist.css";
+@import "~quill/dist/quill.snow.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~angular-calendar/css/angular-calendar.css";
+@import "~dragula/dist/dragula.css";
+@import "~perfect-scrollbar/css/perfect-scrollbar.css";
+@import "~@swimlane/ngx-datatable/release/index.css";
+@import "~@swimlane/ngx-datatable/release/themes/material.css";
+@import "~@swimlane/ngx-datatable/release/assets/icons.css";
+@import '~ngx-toastr/toastr.css';
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+@import 'assets/styles/variable';
+@import 'assets/styles/icons/themify-icons/themify-icons.css';
+@import 'assets/styles/icons/font-awesome/css/font-awesome.css';
+@import 'assets/styles/spinner';
+@import 'assets/styles/app';
+@import 'assets/styles/header';
+@import 'assets/styles/widgets';
+@import 'assets/styles/pages';
+@import 'assets/styles/sidebar';
+@import 'assets/styles/dark-sidebar';
+@import 'assets/styles/responsive';
+@import 'assets/styles/rtl';
+
+
+// Red Theme
+
+.danger {
+  @import 'assets/styles/colors/red';
+  @include angular-material-theme($red-app-theme);
+}
+
+// Blue Theme
+
+.blue {
+  @import 'assets/styles/colors/blue';
+  @include angular-material-theme($blue-app-theme);
+}
+
+// Green Theme
+
+.green {
+  @import 'assets/styles/colors/green';
+  @include angular-material-theme($green-app-theme);
+}
+
+// Dark Theme
+
+.dark {
+  @import 'assets/styles/colors/dark';
+  @include angular-material-theme($dark-theme);
+}
+
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Poppins'
+);
+@include mat-core($custom-typography);
+
+/** DataTable.js**/
+.dataTables_empty {
+  display: none;
+}
+
+.dataTable .no-data-available {
+  text-align: center;
+}
+
+table.dataTable, table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd, table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1, table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column.stripe tbody tr.even > .sorting_1, table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+  background-color: #fff !important;
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 13px 10px !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 16px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  border: none;
+  border-bottom: solid 1px #928d8d;
+  color: #333333;
+  font-weight: 300;
+}
+
+.dataTables_filter, .dataTables_length {
+  display: none;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+  border: none;
+  border-bottom: solid 1px #928d8d;
+  position: relative;
+  top: -3px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background-color: #f7f6f6 !important;
+  background: #f7f6f6 !important;
+  padding-top: 6px;
+  padding-bottom: 7px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #5d78ff !important;
+  box-shadow: 0 0 0 transparent !important;
+  border: 1px solid #949090 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.current:hover {
+  color: #fff !important;
+}
+
+table.dataTable.no-footer, table.dataTable thead th, table.dataTable thead td {
+  border-bottom: 1px solid #dddddd !important;
+}
+
+/** End DataTable.js**/
+.story-item {
+  cursor: all-scroll;
+}
+
+.mat-spinner.mat-progress-spinner {
+  display: inline-block;
+  margin-left: 15px;
+  vertical-align: middle;
+}
+
+/** Breadcrumb**/
+.breadcrumb-item {
+  text-transform: capitalize;
+}
+
+/** End Breadcrumb**/
+
+/******* CDK *********/
+
+.cdk-list {
+  //width: 500px;
+  //max-width: 100%;
+  //border: solid 1px #ccc;
+  min-height: 60px;
+  //display: block;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cdk-box {
+  padding: 20px 10px;
+  //border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  //display: flex;
+  //flex-direction: row;
+  //align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-box:last-child {
+  border: none;
+}
+
+.cdk-list.cdk-drop-list-dragging .cdk-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/******  End CDK *********/
+//input.mat-input-element {
+//  color: #000;
+//}
+
+.mat-card {
+  .mat-card-title {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #6b67672b !important;
+    padding-bottom: 10px;
+    color: rgb(193, 193, 193);
+  }
+
+}
+
+.dark {
+  .editor-label {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .page-breadcrumb {
+    background: #424242 !important;
+  }
+
+  .mat-toolbar {
+    background: #595959;
+  }
+
+  .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2) !important;
+    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2) !important;
+  }
+}
+
+.editor-label {
+  color: rgba(0, 0, 0, 0.54);
+  text-transform: capitalize;
+  margin-bottom: .5rem;
+  display: block;
+}
+
+
+.mat-card-header-text {
+  width: 100%;
+}
+
+//
+//.mat-card {
+//  background: #a1b1ba;
+//
+//}
+
+app-input-validation {
+  width: 100%;
+}
+
+.quill-editor {
+  margin-bottom: 15px;
+  display: block;
+}
+
+.mcc-color-picker-selector-preview {
+  height: 70px !important;
+}
+
+.product-item {
+  .little-profile .pro-img img, .little-profile .pro-img:first-child img {
+    width: auto;
+    height: 128px;
+    box-shadow: none;
+    border-radius: 0%;
+  }
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.comment-footer .action-icons a:first-child {
+  padding-left: 0;
+}
+
+.comment-footer .action-icons a:last-child {
+  padding-right: 0;
+}
+
+.comment-text {
+  padding: 15px 15px 15px 0px;
+}
+
+
+.image-table-border {
+  border-radius: 4px;
+  background-color: #fcfcfc;
+  width: 75px;
+  height: 75px;
+  display: flex;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.image-table img {
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.image-table h6 {
+  margin-top: .4rem;
+  margin-bottom: .2rem;
+  text-align: center;
+}
+
+.mat-card-content {
+  text-align: initial
+}
+
+
+.checkbox-block {
+  margin-bottom: .7rem;
+  display: block;
+}
+
+
+.cover-profile .pro-img, .cover-profile .pro-img:first-child {
+  margin-top: 0;
+}
+
+.cover-profile {
+  height: 300px;
+
+}
+.image-table-border {
+  border-radius: 4px;
+  background-color: #fcfcfc;
+  width: 75px;
+  height: 75px;
+  display: flex;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.image-table img {
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.image-table h6 {
+  margin-top: .4rem;
+  margin-bottom: .2rem;
+  text-align: center;
+}
+
+.mat-card-content {
+  text-align: initial
+}
+
+.rtl .order-forward{}
+.rtl .order-back{
+  order: 2;
+}

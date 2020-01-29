@@ -1,0 +1,45 @@
+<mat-card style="margin-bottom: -15px">
+
+  <mat-toolbar class="white-toolbar" style="box-shadow: none">
+
+    <breadcrumb class="mat-card-breadcrumb" [allowBootstrap]="true"></breadcrumb>
+    <button mat-button mat-icon-button
+            *ngIf="infoText"
+            class="mytooltip">
+      <mat-icon>info</mat-icon>
+      <span class="tooltip-content5">
+                <span class="tooltip-text3">
+                    <p class="tooltip-inner2">
+                        {{ infoText }}
+                    </p>
+                </span>
+            </span>
+    </button>
+
+    <span fxFlex></span>
+    <button mat-button
+            *ngIf="createSubItemLink"
+            matTooltip="{{ 'add new product' | translate }}"
+            mat-icon-button
+            routerLink="{{ createSubItemLink }}">
+      <mat-icon>queue</mat-icon>
+    </button>
+    <button mat-button
+            *ngIf="createLink"
+            matTooltip="{{ 'add new item'  | translate}}"
+            mat-icon-button
+            routerLink="{{ createLink }}">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button class="order-back" matTooltip="{{ 'Back' | translate}}" mat-button mat-icon-button (click)="goBack()">
+      <mat-icon >chevron_left</mat-icon>
+    </button>
+    <button  class="order-forward" matTooltip="{{ 'Forward'  | translate}}" mat-button mat-icon-button (click)="goForward()">
+      <mat-icon >chevron_right</mat-icon>
+    </button>
+    <!--<button matTooltip="More" mat-button mat-icon-button>-->
+    <!--<mat-icon>more_vert</mat-icon>-->
+    <!--</button>-->
+
+  </mat-toolbar>
+</mat-card>

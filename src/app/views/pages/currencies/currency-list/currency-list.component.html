@@ -1,0 +1,25 @@
+<div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-content *ngIf="currencies.length > 0">
+      <div class="comment-widgets" fxLayout="row wrap" @list>
+        <!-- Comment Row -->
+        <app-crud-list
+          fxFlex.gt-lg="25" fxFlex.gt-md="33.3" fxFlex.gt-xs="100" fxFlex="100"
+          *ngFor="let currency of currencies; let i=index;"
+          [cardTitle]="currency.nameEn"
+          [cardDescription]="currency.symbolEn"
+          [cardDate]="currency.updatedAt"
+          (deleteEvent)="delete(currency.id,i)"
+          [active]="currency.isBaseCurrency"
+          [tagText]="currency.isBaseCurrency !== 0 ?'Base':'Not Base'"
+          editLink="/currencies/edit/{{currency.id}}"
+          @items></app-crud-list>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+
+

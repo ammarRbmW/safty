@@ -1,0 +1,121 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+
+      <mat-form-field>
+        <mat-select placeholder="role" [formControl]="roleSelect" (selectionChange)="getUsersByRole()">
+          <mat-option *ngFor="let role of roles"
+
+                      [value]="role.id">{{role.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card-content>
+        <mat-table #table [dataSource]="dataSourceAll">
+
+          <!-- Weight Column -->
+          <ng-container *ngFor="let col of displayedColumns" matColumnDef="{{col}}">
+            <div *ngIf="col!== 'action' && col!== 'created_at' && col!== 'photo'">
+              <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{element[col]}}
+              </mat-cell>
+            </div>
+
+            <div *ngIf="col === 'full_name'">
+              <mat-header-cell *matHeaderCellDef> {{col |translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{element.first_name + ' ' + element.last_name }}
+              </mat-cell>
+            </div>
+
+
+            <div *ngIf="col === 'photo'">
+              <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+
+              <mat-cell *matCellDef="let element; let i = index">
+                <div *ngIf="col === 'photo' && element[col]">
+                  <div class="image-table" [mdePopoverTriggerFor]="appPopover">
+                    <div class="image-table-border">
+                      <img class="img-responsive rounded" src="{{apiUrl + element.photo}}"/>
+                    </div>
+                    <h6>{{element[col].username}}</h6>
+                  </div>
+                  <mde-popover #appPopover="mdePopover" mdePopoverPositionY="below">
+                    <div>
+                      <mat-card class="oh text-center little-profile">
+                        <img src="{{apiUrl + element.photo}}" width="200">
+                        <mat-card-content>
+                          <h3 class="m-b-0 m-t-3">{{element.username}}</h3>
+                          <p class="m-b-0 m-t-0">
+                            <b> {{'full name' | translate}}: </b>
+                            {{element[col].first_name + ' ' + element.last_name}}</p>
+
+                          <p class="m-b-0 m-t-0"><b>{{'id' | translate}}: </b> {{element.id}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'username' | translate}}: </b> {{element.username}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'first_name' | translate}}: </b> {{element.first_name}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'last_name' | translate}}: </b> {{element.last_name}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'email' | translate}}: </b> {{element.email}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'mobile' | translate}}: </b> {{element.mobile}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'birthday' | translate}}: </b> {{element.birthday}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'home address 1' | translate}}: </b> {{element.home_address1}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'home address 2' | translate}}: </b> {{element.home_address2}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'work address' | translate}}: </b> {{element.work_address}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'location address 1' | translate}}
+                            : </b> {{element.location_address1}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'location address 2' | translate}}
+                            : </b> {{element.location_address2}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'photo' | translate}}: </b> {{element.photo}}</p>
+                          <p class="m-b-0 m-t-0"><b>{{'created_at' | translate}}: </b> {{element.created_at}}</p>
+
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                  </mde-popover>
+                </div>
+              </mat-cell>
+
+
+            </div>
+
+            <div *ngIf="col==='action'">
+              <mat-header-cell *matHeaderCellDef> {{col | translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element; let i = index">
+
+                <a [routerLink]="'/users/profile/'+element.id"
+                   style="cursor: pointer;"
+                   matTooltip="{{ 'info' | translate }}">
+                  <mat-icon class="text-success">info</mat-icon>
+                </a>
+
+              </mat-cell>
+            </div>
+
+
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-card-content>
+
+
+    </mat-card>
+  </div>
+</div>
+
+
+<mat-card>
+  <mat-card-content>
+    <mat-paginator [length]="length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="pageEvent = getServerData($event)">
+    </mat-paginator>
+
+
+  </mat-card-content>
+</mat-card>

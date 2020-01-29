@@ -1,0 +1,69 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+
+      <div fxLayout="row" fxLayout.sm="column">
+
+        <div fxFlex.gt-sm="33.33%">
+          <app-upload-card imageName="{{imageUpload.configImage.ImageName | translate}}" elementId="StoryImage"
+                           [showSpinner]="imageUpload.showSpinnerImage"
+
+                           (readURLEvent)="readURL($event, 'mainPhoto')"
+                           [oldImage]="imageUpload.oldImage"></app-upload-card>
+          <ng-template #openDialogImage>
+            <app-image-editor [config]="imageUpload.configImage"
+                              (file)="getEditedFile($event, 'image') "
+                              (fileOpen)="fileOpen($event)"
+                              [fixedWidth]="fixedWidth"
+                              [fixedHeight]="fixedHeight"
+                              [oldImage]="imageUpload.oldImage"
+                              [oldImage1]="false">
+
+            </app-image-editor>
+          </ng-template>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (submit)="store()">
+        <mat-tab-group>
+          <mat-tab label="{{ 'English' | translate}}">
+            <mat-card-content>
+              <app-input-validation field="titleEn" [theForm]="form"></app-input-validation>
+              <app-input-validation field="subTitleEn" [theForm]="form"></app-input-validation>
+            </mat-card-content>
+          </mat-tab>
+          <mat-tab label="{{ 'Arabic' | translate}}">
+            <mat-card-content>
+              <app-input-validation field="titleAr" [theForm]="form"></app-input-validation>
+              <app-input-validation field="subTitleAr" [theForm]="form"></app-input-validation>
+            </mat-card-content>
+          </mat-tab>
+
+        </mat-tab-group>
+        <div class="p-10">
+
+          <app-input-validation field="price" [theForm]="form"></app-input-validation>
+          <app-input-validation field="discount" [theForm]="form"></app-input-validation>
+          <app-input-validation field="url" [theForm]="form"></app-input-validation>
+          <mat-form-field>
+            <mat-select placeholder="{{'position' |translate}}" [formControl]="form.controls.position">
+              <mat-option *ngFor="let position of positions"
+                          [value]="position.value">{{position.text}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-card-actions class="p-10">
+          <button mat-raised-button color="primary"
+                  type="submit"
+                  [disabled]="!form.valid">
+            {{ 'save'| translate}}
+          </button>
+          <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+        </mat-card-actions>
+
+      </form>
+    </mat-card>
+  </div>
+</div>

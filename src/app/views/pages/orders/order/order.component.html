@@ -1,0 +1,219 @@
+<div fxLayout="row wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card class="oh text-center little-profile">
+
+      <div class="cover-profile"
+           style='background: url("assets/images/background/dark-material-bgsm.jpg") center center fixed no-repeat'>
+
+        <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start end" style="height: 100%">
+          <div fxFlex.gt-sm="20%" fxFlex.gt-xs="33.33%" fxFlex="100" fxFlexAlign="center"
+               style="margin-top: 6rem;">
+            <div class="pro-img">
+              <img src="assets/images/users/4.jpg" width="100">
+
+            </div>
+          </div>
+          <div fxFlex.gt-sm="80%" fxFlex.gt-xs="33.33%"
+               fxFlex="100" fxFlexAlign="center"
+               style="margin-top: 6rem;">
+            <h3 class="m-b-0">{{user.username}}</h3>
+            <h6 class="m-t-0">{{user.email}}</h6>
+          </div>
+
+        </div>
+
+      </div>
+
+      <mat-tab-group>
+        <mat-tab label="{{'Order' | translate}}">
+          <mat-card-content>
+            <p class="m-t-0  "><b>{{'order id' | translate}}: </b>{{order.order_id}}</p>
+            <p class="m-t-0  "><b>{{'order status' | translate}}: </b>
+
+              <span class="label label-danger" *ngIf="order.order_status === 'PENDING'"> {{order.order_status | translate}}</span>
+              <span class="label label-info" *ngIf="order.order_status === 'PAID'"> {{order.order_status| translate }}</span>
+              <span class="label label-success"
+                    *ngIf="order.order_status=== 'DELIVERED'"> {{order.order_status | translate }}</span>
+              <span class="label label-success" style="background-color: #00897b"
+                    *ngIf="order.order_status=== 'APPROVED'"> {{order.order_status | translate}}</span>
+
+
+              <a [matMenuTriggerFor]="menu4"
+                 style="cursor: pointer"
+                 matTooltip="{{ 'change status' | translate }}">
+                <mat-icon>more_vert</mat-icon>
+              </a>
+              <mat-menu #menu4="matMenu">
+                <button mat-menu-item *ngFor="let status of allStatus; let i = index"
+                        (click)="changeStatus(order.order_id, status.id)">
+                  <span>{{status.code}}</span>
+                </button>
+
+              </mat-menu>
+            </p>
+            <p class="m-t-0 "><b>{{'discount' | translate}}: </b>{{order.discount}}</p>
+            <p class="m-t-0 "><b>{{'sub_total' | translate}}: </b>{{order.sub_total}}</p>
+            <p class="m-t-0 "><b>{{'payment_fee' | translate}}: </b>{{order.payment_fee}}</p>
+            <p class="m-t-0 "><b>{{'shipment_fee' | translate}}: </b>{{order.shipment_fee}}</p>
+            <p class="m-t-0 "><b>{{'tax_total' | translate}}: </b>{{order.tax_total | currency :'KD'}}</p>
+            <p class="m-t-0 "><b>{{'total' | translate}}: </b>{{order.total | currency :'KD'}}</p>
+            <p class="m-t-0 "><b>{{'coupon' | translate}}: </b>{{order.coupons}}</p>
+            <p class="m-t-0 "><b>{{'notes' | translate}}: </b>{{order.notes}}</p>
+
+            <p class="m-t-0 "><b>{{'payment_method' | translate}}: </b>{{order.payment_method}}</p>
+            <p class="m-t-0 "><b>{{'shipping_zone' | translate}}: </b>{{order.shipping_zone}}</p>
+            <div *ngIf="order.shipping_info">
+              <p class="m-t-0 "><b>{{'shipping_info' | translate}}: </b></p>
+              <ul>
+                <li><b>{{'title' | translate}}: </b>{{order.shipping_info.title}}</li>
+                <li><b>{{'first_name' | translate}}: </b>{{order.shipping_info.first_name}}</li>
+                <li><b>{{'middle_name' | translate}}: </b>{{order.shipping_info.middle_name}}</li>
+                <li><b>{{'last_name' | translate}}: </b>{{order.shipping_info.last_name}}</li>
+                <li><b>{{'address_1' | translate}}: </b>{{order.shipping_info.address_1}}</li>
+                <li><b>{{'address_2' | translate}}: </b>{{order.shipping_info.address_2}}</li>
+                <li><b>{{'phone' | translate}}: </b>{{order.shipping_info.phone}}</li>
+                <li><b>{{'postal_code' | translate}}: </b>{{order.shipping_info.postal_code}}</li>
+                <li><b>{{'fax' | translate}}: </b>{{order.shipping_info.fax}}</li>
+                <li><b>{{'company_name' | translate}}: </b>{{order.shipping_info.company_name}}</li>
+                <li><b>{{'city' | translate}}: </b>{{order.shipping_info.city}}</li>
+                <li><b>{{'country' | translate}}: </b>{{order.shipping_info.country}}</li>
+                <li><b>{{'region' | translate}}: </b>{{order.shipping_info.region}}</li>
+              </ul>
+
+            </div>
+
+            <div *ngIf="order.payment_info">
+              <p class="m-t-0"><b>{{'payment info' | translate}}: </b></p>
+              <ul>
+                <li><b>{{'title' | translate}}: </b>{{order.payment_info.title}}</li>
+                <li><b>{{'first_name' | translate}}: </b>{{order.payment_info.first_name}}</li>
+                <li><b>{{'middle_name' | translate}}: </b>{{order.payment_info.middle_name}}</li>
+                <li><b>{{'last_name' | translate}}: </b>{{order.payment_info.last_name}}</li>
+                <li><b>{{'address_1' | translate}}: </b>{{order.payment_info.address_1}}</li>
+                <li><b>{{'address_2' | translate}}: </b>{{order.payment_info.address_2}}</li>
+                <li><b>{{'phone' | translate}}: </b>{{order.payment_info.phone}}</li>
+                <li><b>{{'postal_code' | translate}}: </b>{{order.payment_info.postal_code}}</li>
+                <li><b>{{'fax' | translate}}: </b>{{order.payment_info.fax}}</li>
+                <li><b>{{'company_name' | translate}}: </b>{{order.payment_info.company_name}}</li>
+                <li><b>{{'city' | translate}}: </b>{{order.payment_info.city}}</li>
+                <li><b>{{'country' | translate}}: </b>{{order.payment_info.country}}</li>
+                <li><b>{{'region' | translate}}: </b>{{order.payment_info.region}}</li>
+              </ul>
+
+            </div>
+
+            <p class="m-t-0"><b>{{'created_at' | translate}}: </b>{{order.created_at | date:'medium'}}</p>
+
+
+            <mat-table #table [dataSource]="dataSourceAll">
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="image">
+                <mat-header-cell *matHeaderCellDef> {{'image' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <div class="image-table-border" style="margin: 0">
+                    <img class="img-responsive rounded" src="{{apiUrl + element.product_item.product_info.image}}"/>
+                  </div>
+                </mat-cell>
+
+              </ng-container>
+
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="sku">
+                <mat-header-cell *matHeaderCellDef> {{'sku' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{element.product_item.product_info.sku}}
+                </mat-cell>
+              </ng-container>
+              <!-- Weight Column -->
+              <ng-container matColumnDef="code">
+                <mat-header-cell *matHeaderCellDef> {{'code' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{element.product_item.code}}
+                </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef> {{'quantity' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{element.product_item.quantity}}
+                </mat-cell>
+              </ng-container>
+
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef> {{'price' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{element.product_item.price}}
+                </mat-cell>
+              </ng-container>
+
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="new_price">
+                <mat-header-cell *matHeaderCellDef> {{'new_price' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{element.product_item.new_price}}
+                </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="color">
+                <mat-header-cell *matHeaderCellDef> {{'color' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <div *ngIf="element.product_item.color">
+                    {{element.product_item.color.translations.en.name + ' | ' + element.product_item.color.translations.ar.name }}
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="size">
+                <mat-header-cell *matHeaderCellDef> {{'size' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <div *ngIf="element.product_item.size">
+                    {{element.product_item.size.translations.en.name + ' | ' + element.product_item.size.translations.ar.name }}
+                  </div>
+
+                </mat-cell>
+              </ng-container>
+              <!-- Weight Column -->
+              <ng-container matColumnDef="total_price">
+                <mat-header-cell *matHeaderCellDef> {{'total_price' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{element.total_price}}
+                </mat-cell>
+              </ng-container>
+
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab label="{{'Profile' | translate}}">
+          <mat-card-content>
+
+            <p class="m-t-0"><b>{{'username' | translate}}: </b>{{user.username}}</p>
+            <p class="m-t-0"><b>{{'full name' | translate}}: </b>
+              {{user.first_name + ' ' + user.last_name}}
+            </p>
+            <p class="m-t-0"><b>{{'email' | translate}}: </b>{{user.email}}</p>
+            <p class="m-t-0"><b>{{'mobile' | translate}}: </b>{{user.mobile}}</p>
+            <p class="m-t-0"><b>{{'birthday' | translate}}: </b>{{user.birthday}}</p>
+            <p class="m-t-0"><b>{{'home address 1' | translate}}: </b>{{user.home_address1}}</p>
+            <p class="m-t-0"><b>{{'home address 2' | translate}}: </b>{{user.home_address2}}</p>
+            <p class="m-t-0"><b>{{'work address' | translate}}: </b>{{user.work_address}}</p>
+            <p class="m-t-0"><b>{{'location address 1' | translate}}: </b>{{user.location_address1}}</p>
+            <p class="m-t-0"><b>{{'location address 2' | translate}}: </b>{{user.location_address2}}</p>
+            <p class="m-t-0"><b>{{'joined at' | translate}}: </b>{{user.created_at | date:'medium'}}</p>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</div>

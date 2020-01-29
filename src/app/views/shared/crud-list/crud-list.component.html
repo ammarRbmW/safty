@@ -1,0 +1,81 @@
+<div>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar *ngIf="smallImage" style="height: auto;
+    width: 110px;">
+        <img [src]="smallImage" class="img-fluid"/>
+      </div>
+
+      <mat-card-title *ngIf="cardTitle">{{cardTitle}}</mat-card-title>
+      <mat-card-subtitle *ngIf="cardDescription">{{cardDescription}}</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="cardDate">{{cardDate}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- column -->
+      <div class="stats">
+        <span *ngIf="active===0" class="label label-danger">{{ tagText !== null ? tagText : 'inactive'  }}</span>
+        <span *ngIf="active===1" class="label label-success">{{ tagText !== null ? tagText : 'active'  }}</span>
+
+        <div class="d-flex flex-row no-block action-icons">
+
+          <div class="p-10 p-l-0 b-r">
+            <div class="font-light" *ngIf="showLink">
+              <a style="color: #ffffff" [routerLink]="showLink" matTooltip="{{ 'show' |translate }}">
+                <mat-icon>apps</mat-icon>
+              </a></div>
+          </div>
+          <div class="p-10 b-r" *ngIf="editLink">
+            <div class="font-light">
+              <a [routerLink]="editLink" matTooltip="{{ 'edit'  |translate }}">
+                <mat-icon class="text-success">mode_edit</mat-icon>
+              </a>
+            </div>
+          </div>
+          <div class="p-10">
+            <div class="font-light">
+
+              <a (click)="_deleteEvent(data)" style="cursor: pointer;" matTooltip="{{ 'delete' |translate}}">
+                <mat-icon class="text-danger">clear</mat-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sitea"></div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!--<div class="comment-row box">-->
+<!--  <div class="p-2">-->
+<!--    <span class="" *ngIf="smallImage"> <img [src]="smallImage" alt="user" height="100">  </span>-->
+<!--  </div>-->
+<!--  <div class="comment-text w-100">-->
+<!--    <h5 class="m-0" *ngIf="cardTitle">{{cardTitle}}</h5>-->
+<!--    <p class="m-b-5" *ngIf="cardDescription">{{cardDescription}}</p>-->
+<!--    <div class="comment-footer">-->
+<!--      <span class="text-muted pull-right" *ngIf="cardDate">{{cardDate}}</span>-->
+<!--      <span *ngIf="active===0" class="label label-danger">{{ 'inactive'  }}</span>-->
+<!--      <span *ngIf="active===1" class="label label-success">{{ 'active'  }}</span>-->
+
+<!--      <span class="action-icons">-->
+<!--        <a *ngIf="showLink"-->
+<!--           [routerLink]="showLink" matTooltip="{{ 'show' }}">-->
+<!--              <mat-icon>apps </mat-icon>-->
+<!--          </a>-->
+
+<!--          <a *ngIf="editLink" [routerLink]="editLink" matTooltip="{{ 'edit'  }}">-->
+<!--            <mat-icon class="text-success">mode_edit</mat-icon>-->
+<!--          </a>-->
+
+<!--          <a (click)="_deleteEvent(data)" style="cursor: pointer;" matTooltip="{{ 'delete' }}">-->
+<!--            <mat-icon class="text-danger">clear </mat-icon>-->
+
+<!--          </a>-->
+
+<!--      </span>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

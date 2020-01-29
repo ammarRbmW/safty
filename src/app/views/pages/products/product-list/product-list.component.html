@@ -1,0 +1,22 @@
+<div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-content *ngIf="products.length > 0">
+      <div class="comment-widgets" fxLayout="row wrap" @list>
+        <!-- Comment Row -->
+        <app-crud-list
+          fxFlex.gt-lg="25" fxFlex.gt-md="33.3" fxFlex.gt-xs="100" fxFlex="100"
+          *ngFor="let product of products; let i=index;"
+          [smallImage]="apiUrl+product.mainPhoto"
+          [cardTitle]="product.nameEn"
+          [cardDescription]="product.nameEn"
+          (deleteEvent)="delete(product.id,i)"
+          editLink="/products/edit/{{parentCategoryId+'/'+product.id}}"
+          @items></app-crud-list>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+

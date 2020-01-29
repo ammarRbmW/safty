@@ -1,0 +1,63 @@
+<div fxLayout="row wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card class="oh text-center little-profile">
+
+      <div class="cover-profile"
+           style='background: url("assets/images/background/dark-material-bgsm.jpg") center center fixed no-repeat'>
+
+        <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start end" style="height: 100%">
+          <div fxFlex.gt-sm="20%" fxFlex.gt-xs="33.33%" fxFlex="100" fxFlexAlign="center"
+               style="margin-top: 6rem;">
+            <div class="pro-img">
+              <img src="assets/images/users/4.jpg" width="100" alt="user">
+
+            </div>
+          </div>
+          <div fxFlex.gt-sm="80%" fxFlex.gt-xs="33.33%"
+               fxFlex="100" fxFlexAlign="center"
+               style="margin-top: 6rem;">
+            <h3 class="m-b-0">{{user.username}}</h3>
+            <h6 class="m-t-0">{{user.email}}</h6>
+          </div>
+
+        </div>
+
+      </div>
+
+      <mat-tab-group>
+
+        <mat-tab label="{{'Profile' | translate}}">
+          <mat-card-content>
+
+            <p class="m-t-0"><b>{{'username' | translate}}: </b>{{user.username}}</p>
+            <p class="m-t-0"><b>{{'full name' | translate}}: </b>
+              {{user.first_name + ' ' + user.last_name}}
+            </p>
+            <p class="m-t-0"><b>{{'email' | translate}}: </b>{{user.email}}</p>
+            <p class="m-t-0"><b>{{'mobile' | translate}}: </b>{{user.mobile}}</p>
+            <p class="m-t-0"><b>{{'birthday' | translate}}: </b>{{user.birthday}}</p>
+            <p class="m-t-0"><b>{{'home address 1' | translate}}: </b>{{user.home_address1}}</p>
+            <p class="m-t-0"><b>{{'home address 2' | translate}}: </b>{{user.home_address2}}</p>
+            <p class="m-t-0"><b>{{'work address' | translate}}: </b>{{user.work_address}}</p>
+            <p class="m-t-0"><b>{{'location address 1' | translate}}: </b>{{user.location_address1}}</p>
+            <p class="m-t-0"><b>{{'location address 2' | translate}}: </b>{{user.location_address2}}</p>
+            <p class="m-t-0"><b>{{'joined at' | translate}}: </b>{{user.created_at | date:'medium'}}</p>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab label="{{'Roles' | translate}}">
+          <mat-card-content>
+
+            <mat-form-field>
+              <mat-select placeholder="{{'select Role' | translate}}" multiple [formControl]="roleSelect"
+                          (selectionChange)="updateUserRoles()">
+                <mat-option *ngFor="let role of roles"
+                            [value]="role.id">{{role.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</div>
